@@ -1,0 +1,47 @@
+name: monorepo-template
+services:
+  message_api_project:
+    build:
+      context: .
+      dockerfile: projects/message_api_project/Dockerfile
+    ports:
+      - "8100:8000"
+    env_file:
+      - .dev.env
+    depends_on:
+      - db
+  greet_api_project:
+    build:
+      context: .
+      dockerfile: projects/greet_api_project/Dockerfile
+    ports:
+      - "8101:8000"
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: mono
+      MARIADB_USER: mono
+      MARIADB_PASSWORD: mono
+      TZ: 'Asia/Tokyo'
+    volumes:
+      - db-store:/var/lib/mysql
+      - ./db/conf/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+      - 3336:3306
+  development:
+    build:
+      context: .
+      dockerfile: ./migrations/Dockerfile
+    tty: true
+    volumes:
+      - .:/app
+      - /app/.venv
+    env_file:
+      - .dev.env
+    depends_on:
+      - db
+
+volumes:
+  db-store:

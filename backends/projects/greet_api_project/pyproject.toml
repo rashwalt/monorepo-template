@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling", "hatch-polylith-bricks"]
+build-backend = "hatchling.build"
+
+[project]
+name = "greet_api_project"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "rashwalt", email = "foxbland@gmail.com" }
+]
+
+requires-python = ">= 3.12"
+
+dependencies = [
+    "fastapi>=0.111.1",
+    "uvicorn>=0.30.3",
+]
+
+[tool.hatch.build.hooks.polylith-bricks]
+
+[tool.polylith.bricks]
+"../../bases/backends/greet_api" = "backends/greet_api"
+"../../components/backends/logs" = "backends/logs"

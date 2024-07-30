@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling", "hatch-polylith-bricks"]
+build-backend = "hatchling.build"
+
+[project]
+name = "message_api_project"
+version = "0.1.0"
+description = ""
+authors = [
+    { name = "rashwalt", email = "foxbland@gmail.com" }
+]
+
+requires-python = ">= 3.12"
+
+dependencies = [
+    "fastapi>=0.111.1",
+    "uvicorn>=0.30.3",
+    "pydantic-settings>=2.3.4",
+    "sqlalchemy>=2.0.31",
+    "pymysql>=1.1.1",
+]
+
+[tool.hatch.build.hooks.polylith-bricks]
+
+[tool.polylith.bricks]
+"../../bases/backends/message_api" = "backends/message_api"
+"../../components/backends/logs" = "backends/logs"
+"../../components/backends/settings" = "backends/settings"
+"../../components/backends/databases" = "backends/databases"
+"../../components/backends/messages" = "backends/messages"
+"../../components/backends/schemas" = "backends/schemas"
